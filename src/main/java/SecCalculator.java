@@ -1,32 +1,23 @@
 public class SecCalculator {
 
-    private Double CalibrateX(Double x) {
-        double del = Math.PI * 2;
-        if(x < 0)
-            del *= -1;
-        while(Math.abs(x) > 30.0)
-        {
-            x -= del;
-        }
-        return x;
+    public double calculateSec(double x) {
+        return 1 / cos(x);
     }
 
-    public Double calcSec(Double x) throws Exception{
-        try {
-            Double xn = 1.0, prevSum = 0.0, sum = 1.0;
-            final Double EPS = 1e-10, INF = 1.0e8;
-            x = CalibrateX(x);
+    private double cos(double val) {
+        double result = 0;
 
-            for(Integer n = 0; Math.abs(sum - prevSum) > EPS; n++)
-            {
-                prevSum = sum;
-                xn *= (-1.0 * x*x / (2*n + 2) / (2*n + 1));
-                sum += xn;
-            }
-            return Math.abs(1/sum) > INF ? INF : 1/sum;
+        for(int n = 0; n < 7; n++) {
+            result += Math.pow(-1, n) * Math.pow(val, 2 * n) / factorial(2 * n);
         }
-        catch (Exception e){
-            throw e;
-        }
+
+        return result;
+    }
+
+    private int factorial(int val) {
+        if(val <= 1)
+            return 1;
+        else
+            return val * (factorial(val - 1));
     }
 }
