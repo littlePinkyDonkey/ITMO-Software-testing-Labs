@@ -14,8 +14,8 @@ public class SecCalculatorTests {
 
     @ParameterizedTest(name = "Calculate sec({0})")
     @CsvFileSource(resources = "data.csv")
-    void test(Double expectedResult, Integer denominator) {
+    void test(Double expectedResult, Integer denominator, Integer numerator) {
         System.out.printf("res = %f, denominator = %d", expectedResult, denominator);
-        assertEquals(expectedResult, calculator.calculateSec(Math.PI / denominator), DELTA);
+        assertEquals(expectedResult, calculator.calculateSec(numerator * Math.PI / denominator), DELTA);
     }
 }
