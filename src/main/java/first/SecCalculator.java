@@ -2,24 +2,20 @@ package first;
 
 public class SecCalculator {
 
-    public double calculateSec(double x) {
-        return 1 / cos(x);
-    }
+    public Double calculateSec(Double x) {
+        try {
+            Double xn = 1.0, prevSum = 0.0, sum = 1.0;
+            final double EPS = 1e-10, INF = 1.0e8;
 
-    private double cos(double val) {
-        double result = 0;
-
-        for(int n = 0; n < 7; n++) {
-            result += Math.pow(-1, n) * Math.pow(val, 2 * n) / factorial(2 * n);
+            for(int n = 0; Math.abs(sum - prevSum) > EPS; n++) {
+                prevSum = sum;
+                xn *= (-1.0 * x*x / (2*n + 2) / (2*n + 1));
+                sum += xn;
+            }
+            return Math.abs(1/sum) > INF ? INF : 1/sum;
         }
-
-        return result;
-    }
-
-    private int factorial(int val) {
-        if(val <= 1)
-            return 1;
-        else
-            return val * (factorial(val - 1));
+        catch (Exception e){
+            throw e;
+        }
     }
 }
