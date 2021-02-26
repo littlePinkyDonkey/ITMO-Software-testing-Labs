@@ -25,7 +25,7 @@ public class Human implements HumansAction {
 
     @Override
     public boolean pullPeople(Human human) {
-        System.out.println("Человек расталкивает людей\n");
+        System.out.printf("Человек расталкивает: %s\n", human.toString());
         return true;
     }
 
