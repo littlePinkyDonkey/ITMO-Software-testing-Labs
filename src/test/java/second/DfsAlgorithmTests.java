@@ -2,6 +2,7 @@ package second;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,12 +10,51 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Second task tests")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DfsAlgorithmTests {
+    private Graph graph;
+
+    @BeforeEach
+    void init() {
+        this.graph = new Graph(8);
+
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 2);
+        graph.addEdge(0, 3);
+        graph.addEdge(1, 5);
+        graph.addEdge(1, 0);
+        graph.addEdge(1, 2);
+        graph.addEdge(1, 6);
+        graph.addEdge(1, 3);
+        graph.addEdge(2, 0);
+        graph.addEdge(2, 1);
+        graph.addEdge(2, 4);
+        graph.addEdge(2, 5);
+        graph.addEdge(2, 6);
+        graph.addEdge(3, 0);
+        graph.addEdge(3, 1);
+        graph.addEdge(4, 2);
+        graph.addEdge(4, 6);
+        graph.addEdge(5, 1);
+        graph.addEdge(5, 2);
+        graph.addEdge(5, 7);
+        graph.addEdge(6, 1);
+        graph.addEdge(7, 5);
+        graph.addEdge(6, 2);
+        graph.addEdge(6, 4);
+
+    }
+
+    @ParameterizedTest(name = "from {0}")
+    @CsvFileSource(resources = "/dfs-data.csv")
+    @DisplayName("DFS test")
+    void dfsTest(Integer node, String expectedResult) {
+        assertEquals(graph.DFS(node), expectedResult);
+    }
 
     @Nested
     @DisplayName("Comparator properties tests")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     class NodeComparatorTests {
-        private NodeComparator nodeComparator = new NodeComparator();
+        private final NodeComparator nodeComparator = new NodeComparator();
 
         @ParameterizedTest(name = "firstNumber={0}, secondNumber={1}")
         @CsvSource(value = {"1, 1", "2, 1"})

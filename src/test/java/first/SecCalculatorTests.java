@@ -15,7 +15,7 @@ public class SecCalculatorTests {
     private final double INFINITY = 1.0E8;
 
     @ParameterizedTest(name = "Calculate sec({0})")
-    @CsvFileSource(resources = "data.csv")
+    @CsvFileSource(resources = "/data.csv")
     void dataTest(Double expectedResult, Integer numerator, Integer denominator) {
         double actualResult= calculator.calculateSec(numerator * Math.PI / denominator);
 

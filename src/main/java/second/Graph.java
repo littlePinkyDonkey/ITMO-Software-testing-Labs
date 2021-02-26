@@ -7,11 +7,13 @@ public class Graph {
     private final NodeComparator nodeComparator;
     private ArrayList<Integer>[] adjLists;
     private boolean[] visited;
+    private StringBuilder result;
 
     public Graph(int vertices) throws ArrayIndexOutOfBoundsException {
         nodeComparator = new NodeComparator();
         adjLists = new ArrayList[vertices];
         visited = new boolean[vertices];
+        result = new StringBuilder();
 
         for (int i = 0; i < vertices; i++) {
             adjLists[i] = new ArrayList<>();
@@ -24,9 +26,9 @@ public class Graph {
         node.sort(nodeComparator);
     }
 
-    public void DFS(int vertex) {
+    public String DFS(int vertex) {
         visited[vertex] = true;
-        System.out.printf("%d ", vertex);
+        result.append(String.format("%d ", vertex));
 
         Iterator<Integer> iterator = adjLists[vertex].listIterator();
         while (iterator.hasNext()) {
@@ -35,5 +37,6 @@ public class Graph {
                 DFS(adj);
             }
         }
+        return result.toString().trim();
     }
 }
