@@ -13,8 +13,9 @@ public class Graph {
         adjLists = new ArrayList[vertices];
         visited = new boolean[vertices];
 
-        for (int i = 0; i < vertices; i++)
+        for (int i = 0; i < vertices; i++) {
             adjLists[i] = new ArrayList<>();
+        }
     }
 
     public void addEdge(int src, int dest) {
@@ -30,8 +31,9 @@ public class Graph {
         Iterator<Integer> iterator = adjLists[vertex].listIterator();
         while (iterator.hasNext()) {
             int adj = iterator.next();
-            if (!visited[adj])
+            if (!visited[adj]) {
                 DFS(adj);
+            }
         }
     }
 }
