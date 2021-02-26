@@ -5,12 +5,12 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Noise {
-    private String noiseName;
-    private int loud;
+public class Location {
+    private String placeName;
+    private boolean isClosed;
 
     @Override
     public String toString() {
-        return this.noiseName;
+        return this.placeName;
     }
 }

@@ -1,38 +1,24 @@
 package third;
 
+import lombok.Data;
+
+@Data
 public class Student extends Human {
     private String university = "Krysmanski";
-    private Place newPlace = null;
+    private Location newLocation = null;
 
-    public Student() {
-        super();
-    }
-    public Student(String name, Clothes clothes, String university, String mood, Noise noise) {
+    public Student(String name, Clothes clothes, String mood, Noise noise) {
         super(name, clothes, mood, noise);
-        this.university = university;
-    }
-
-    public String getUniversity() {
-        return university;
-    }
-    public void setUniversity(String university) {
-        this.university = university;
-    }
-
-    public Place getNewPlace() {
-        return newPlace;
-    }
-    public void setNewPlace(Place newPlace) {
-        this.newPlace = newPlace;
     }
 
     @Override
-    public boolean breakInRoom(Place place) {
+    public boolean breakInRoom(Location location) {
         double breakInProbability = Math.random();
 
-        if (breakInProbability <= 0.5) {
-            System.out.printf("Студент врывается: %s\n", place.toString());
-            this.newPlace = place;
+        if (!location.isClosed() || breakInProbability <= 0.5) {
+            System.out.printf("Студент в одежде: %s врывается: %s\n", super.getClothes().toString(),
+                    location.toString());
+            this.newLocation = location;
             return true;
         }
 
@@ -40,17 +26,20 @@ public class Student extends Human {
     }
 
     @Override
-    public void pullPeople(Human human) {
-        if (newPlace != null) {
+    public boolean pullPeople(Human human) {
+        if (newLocation != null) {
             System.out.printf("Студент толкает: %s\n", human.toString());
+            return true;
+        } else {
+            System.out.println("Студенту некого толкать\n");
+            return false;
         }
     }
 
     @Override
-    public void generateNoise(Noise noise) {
-        if (newPlace == null) {
-            System.out.printf("Студент издаёт %s\n", noise.toString());
-        }
+    public boolean generateNoise(Noise noise) {
+        System.out.printf("Студент издаёт звук: %s\n", noise.getNoiseName());
+        return true;
     }
 
     @Override
