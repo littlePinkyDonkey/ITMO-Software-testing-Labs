@@ -7,7 +7,7 @@ public class TrigonometricFunction {
         this.secCalculator = secCalculator;
     }
 
-    public double calculateTrigFunction(Double x) {
+    public double calculateTrigFunction(Double x) throws IllegalArgumentException {
         if (x > 0.0) {
             throw new IllegalArgumentException("X должен быть меньше или равен нулю");
         }
