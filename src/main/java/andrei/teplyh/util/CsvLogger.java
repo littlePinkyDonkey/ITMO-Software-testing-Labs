@@ -1,25 +1,23 @@
 package andrei.teplyh.util;
 
 import java.io.*;
+import java.util.Locale;
 
 public class CsvLogger {
-    private PrintStream printStream;
-    private final String filePath = "src/test/resources/";
+    private String filePath = "src/test/resources/";
+    private final char CSV_SEPARATOR = ',';
 
     public CsvLogger(String fileName) {
-        String path = String.format("%s%s", filePath, fileName);
-        try {
-            this.printStream = new PrintStream(new FileOutputStream(path, true));
-        } catch (FileNotFoundException e) {
-            new File(path);
-        }
+        this.filePath = String.format("%s%s", filePath, fileName);
     }
 
-    public void log(Double result, String moduleName) {
-        if (moduleName.contains(",")) {
-            moduleName = moduleName.replace(',', '.');
+    public void log(Double x, Double result) {
+        String csvString = String.format(Locale.US, "%f%s %f\n", x, CSV_SEPARATOR, result);
+
+        try(PrintStream printStream = new PrintStream(new FileOutputStream(filePath, true))) {
+            printStream.print(csvString);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        printStream.printf("%f, Результат модуля %s\n", result, moduleName);
-        printStream.close();
     }
 }

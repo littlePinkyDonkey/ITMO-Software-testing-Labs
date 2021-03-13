@@ -17,6 +17,10 @@ public class Ln extends AbstractFunction {
         getStubsTable().put(1.0 - 0.01, -0.010050000000000009);
         getStubsTable().put(1.0, 0.0);
         getStubsTable().put(1.0 + 0.01, 0.00995000000000001);
+        getStubsTable().put(2.0, 0.693147180559);
+        getStubsTable().put(3.0, 1.098612288);
+        getStubsTable().put(5.0, 1.60943791243);
+        getStubsTable().put(10.0, 2.302585092994);
     }
 
     public Ln(double precision) {

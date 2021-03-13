@@ -51,11 +51,8 @@ public class CosCalculator extends AbstractFunction {
 
         double valueToDouble = value.setScale(scale, RoundingMode.UP).doubleValue();
 
-        if(valueToDouble > 1) {
-            valueToDouble = 1;
-        } else if(valueToDouble < -1) {
-            valueToDouble = -1;
-        }
+        if(valueToDouble > 1) valueToDouble = 1;
+        else if(valueToDouble < -1) valueToDouble = -1;
         return valueToDouble;
     }
 
