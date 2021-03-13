@@ -24,6 +24,10 @@ public class CosCalculator extends AbstractFunction {
         getStubsTable().put(-PI / 4, 0.707106781);
     }
 
+    public CosCalculator(Double accuracy) {
+        super(accuracy);
+    }
+
     public Double calculateFunction(Double arg) {
         if (isNaN(arg) || isInfinite(arg)) {
             return NaN;

@@ -5,7 +5,7 @@ import andrei.teplyh.AbstractFunction;
 import static java.lang.Math.PI;
 
 public class SecCalculator extends AbstractFunction {
-    private CosCalculator cosCalculator = new CosCalculator();
+    private CosCalculator cosCalculator;
 
     {
         getStubsTable().put(-PI, -1.0);
@@ -17,6 +17,11 @@ public class SecCalculator extends AbstractFunction {
         getStubsTable().put(-3 * PI / 4, -1.41421356375);
         getStubsTable().put( PI / 4, 1.41421356375);
         getStubsTable().put(-PI / 4, 1.41421356375);
+    }
+
+    public SecCalculator(Double accuracy) {
+        super(accuracy);
+        this.cosCalculator = new CosCalculator(accuracy);
     }
 
     public Double calculateFunction(Double x) {
