@@ -8,6 +8,7 @@ public class Ln extends AbstractFunction {
 
     {
         getStubsTable().put(POSITIVE_INFINITY, POSITIVE_INFINITY);
+        getStubsTable().put(Math.PI, 1.1447298858494002);
         getStubsTable().put(Math.E - 0.01, 0.996314422);
         getStubsTable().put(Math.E, 1.0);
         getStubsTable().put(Math.E + 0.01, 1.003672044);

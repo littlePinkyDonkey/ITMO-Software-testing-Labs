@@ -31,4 +31,8 @@ public class Log10 extends AbstractFunction {
     public Double calculateFunction(Double x) {
         return ln.calculateFunction(x) / ln.calculateFunction(10.0);
     }
+
+    public Double calculateStub(Double lnStub) {
+        return lnStub / ln.getStubsTable().get(10.0);
+    }
 }

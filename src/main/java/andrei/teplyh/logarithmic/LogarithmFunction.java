@@ -44,4 +44,19 @@ public class LogarithmFunction {
                 );
 
     }
+
+    public double calculateStub(Double x, Double lnResult, Double log2Result,
+                                Double log3Result, Double log5Result, Double log10Result) throws IllegalArgumentException {
+        if (x <= 0.0) {
+            throw new IllegalArgumentException("X должен быть больше нуля");
+        }
+
+        return (Math.pow((lnResult + log10Result) - (log2Result * log3Result), 3) - lnResult) +
+                (
+                        ((log3Result / log10Result) * lnResult) /
+                                (
+                                        (log10Result + log2Result) / (log2Result - log5Result)
+                                )
+                );
+    }
 }
