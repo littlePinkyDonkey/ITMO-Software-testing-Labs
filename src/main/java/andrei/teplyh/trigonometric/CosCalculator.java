@@ -32,6 +32,9 @@ public class CosCalculator extends AbstractFunction {
         if (isNaN(arg) || isInfinite(arg)) {
             return NaN;
         }
+        if (arg == PI / 2 || arg == -PI / 2 || arg == 3 * PI / 2 || arg == -3 * PI / 2) {
+            return 0.0;
+        }
 
         arg = subOverages(arg);
 

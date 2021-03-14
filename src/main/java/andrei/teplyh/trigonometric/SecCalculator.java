@@ -9,9 +9,9 @@ public class SecCalculator extends AbstractFunction {
 
     {
         getStubsTable().put(-PI, -1.0);
-        getStubsTable().put(-PI / 2, 1.0E8);
+        getStubsTable().put(-PI / 2, Double.POSITIVE_INFINITY);
         getStubsTable().put(0.0, 1.0);
-        getStubsTable().put(PI / 2, 1.0E8);
+        getStubsTable().put(PI / 2, Double.POSITIVE_INFINITY);
         getStubsTable().put(PI, -1.0);
         getStubsTable().put(3 * PI / 4, -1.41421356375);
         getStubsTable().put(-3 * PI / 4, -1.41421356375);
@@ -26,8 +26,14 @@ public class SecCalculator extends AbstractFunction {
 
     public Double calculateFunction(Double x) {
         double sum = cosCalculator.calculateFunction(x);
-        final double INF = 1.0e8;
+        final double INF = Double.POSITIVE_INFINITY;
 
         return Math.abs(1/sum) > INF ? INF : 1/sum;
+    }
+
+    public Double calculateStub(Double cosCalculatorResult) {
+        final double INF = Double.POSITIVE_INFINITY;
+
+        return Math.abs(1/cosCalculatorResult) > INF ? INF : 1/cosCalculatorResult;
     }
 }
