@@ -1,6 +1,8 @@
 package andrei.teplyh.logarithmic;
 
-public class LogarithmFunction {
+import andrei.teplyh.AbstractFunction;
+
+public class LogarithmFunction extends AbstractFunction {
     private Ln ln;
     private Log2 log2;
     private Log3 log3;
@@ -8,12 +10,14 @@ public class LogarithmFunction {
     private Log10 log10;
 
     public LogarithmFunction(
+            Double accuracy,
             Ln ln,
             Log2 log2,
             Log3 log3,
             Log5 log5,
             Log10 log10
     ) {
+        super(accuracy);
         this.ln = ln;
         this.log2 = log2;
         this.log3 = log3;
@@ -24,7 +28,7 @@ public class LogarithmFunction {
     /**
      * (((((ln(3.0) + log10(3.0)) - (log2(3.0) * log3(3.0))) ^ 3) - ln(3.0)) + (((log3(3.0) / log10(3.0)) * ln(3.0)) / ((log10(3.0) + log2(3.0)) / (log2(3.0) - log5(3.0)))))
      **/
-    public double calculateLogFunction(Double x) throws IllegalArgumentException {
+    public Double calculateFunction(Double x) throws IllegalArgumentException {
         if (x <= 0.0) {
             throw new IllegalArgumentException("X должен быть больше нуля");
         }
@@ -45,8 +49,8 @@ public class LogarithmFunction {
 
     }
 
-    public double calculateStub(Double x, Double lnResult, Double log2Result,
-                                Double log3Result, Double log5Result, Double log10Result) throws IllegalArgumentException {
+    public double calculateLogFunctionStub(Double x, Double lnResult, Double log2Result,
+                                           Double log3Result, Double log5Result, Double log10Result) throws IllegalArgumentException {
         if (x <= 0.0) {
             throw new IllegalArgumentException("X должен быть больше нуля");
         }

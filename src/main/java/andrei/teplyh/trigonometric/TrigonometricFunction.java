@@ -1,13 +1,16 @@
 package andrei.teplyh.trigonometric;
 
-public class TrigonometricFunction {
+import andrei.teplyh.AbstractFunction;
+
+public class TrigonometricFunction extends AbstractFunction {
     private SecCalculator secCalculator;
 
     public TrigonometricFunction(Double accuracy) {
+        super(accuracy);
         this.secCalculator = new SecCalculator(accuracy);
     }
 
-    public double calculateTrigFunction(Double x) throws IllegalArgumentException {
+    public Double calculateFunction(Double x) throws IllegalArgumentException {
         if (x > 0.0) {
             throw new IllegalArgumentException("X должен быть меньше или равен нулю");
         }
@@ -17,7 +20,7 @@ public class TrigonometricFunction {
         return secResult / secResult;
     }
 
-    public double calculateStub(Double x, Double secCalculatorResult) throws IllegalArgumentException {
+    public double calculateTrigFunctionStub(Double x, Double secCalculatorResult) throws IllegalArgumentException {
         if (x > 0.0) {
             throw new IllegalArgumentException("X должен быть меньше или равен нулю");
         }

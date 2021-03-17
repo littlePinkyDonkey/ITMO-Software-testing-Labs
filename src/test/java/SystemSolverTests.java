@@ -7,7 +7,6 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
-import static java.lang.Math.PI;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("System solver tests")
@@ -22,6 +21,7 @@ public class SystemSolverTests {
         this.systemSolver = new SystemSolver(
                 new TrigonometricFunction(ACCURACY),
                 new LogarithmFunction(
+                        ACCURACY,
                         new Ln(ACCURACY),
                         new Log2(ACCURACY),
                         new Log3(ACCURACY),

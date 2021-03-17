@@ -14,9 +14,9 @@ public class SystemSolver {
 
     public double calculate(Double x) {
         if (x <= 0) {
-            return trigonometricFunction.calculateTrigFunction(x);
+            return trigonometricFunction.calculateFunction(x);
         } else {
-            return logarithmFunction.calculateLogFunction(x);
+            return logarithmFunction.calculateFunction(x);
         }
     }
 }
