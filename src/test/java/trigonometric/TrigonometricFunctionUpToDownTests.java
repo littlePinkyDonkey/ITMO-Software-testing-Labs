@@ -20,7 +20,7 @@ public class TrigonometricFunctionUpToDownTests {
     private TrigonometricFunction trigonometricFunction;
     private SecCalculator secCalculator;
     private CosCalculator cosCalculator;
-    private CsvLogger logger = new CsvLogger("trig_results/cos-results.csv", -5.0, 0.0, 0.5);
+    private CsvLogger logger = new CsvLogger("trig_results/cos-results.csv", -15.0, 0.0, 0.5);
     private final double ACCURACY = 0.001;
     private final double DELTA = 0.05;
 

@@ -102,9 +102,11 @@ public class LogarithmFunctionUpToDownTests {
         logger.log(log3);
 
         logger.setFilePath("log_results/log5-results.csv");
+        logger.setUpperBorder(10.0);
         logger.log(log5);
 
         logger.setFilePath("log_results/log10-results.csv");
+        logger.setUpperBorder(15.0);
         logger.log(log10);
 
         logger.setFilePath("log_results/function-results.csv");
