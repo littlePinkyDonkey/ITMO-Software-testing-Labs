@@ -4,6 +4,7 @@ import andrei.teplyh.trigonometric.CosCalculator;
 import andrei.teplyh.trigonometric.SecCalculator;
 import andrei.teplyh.trigonometric.TrigonometricFunction;
 import andrei.teplyh.util.CsvLogger;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -83,11 +84,13 @@ public class TrigonometricFunctionUpToDownTests {
         }
     }
 
+    @Ignore
     @Test
     void log() {
         logger.log(cosCalculator);
 
         logger.setFilePath("trig_results/sec-results.csv");
+        logger.setLowerBorder(-5 * PI);
         logger.log(secCalculator);
 
         logger.setFilePath("trig_results/function-results.csv");

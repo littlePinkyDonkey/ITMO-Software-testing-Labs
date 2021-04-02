@@ -2,6 +2,7 @@ package logarithmic;
 
 import andrei.teplyh.logarithmic.*;
 import andrei.teplyh.util.CsvLogger;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -91,6 +92,7 @@ public class LogarithmFunctionUpToDownTests {
     }
 
     @Test
+    @Ignore
     @DisplayName("Logging")
     void logResults() {
         logger.log(ln);
