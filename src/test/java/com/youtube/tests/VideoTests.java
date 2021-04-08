@@ -2,10 +2,7 @@ package com.youtube.tests;
 
 import com.youtube.pages.VideoPage;
 import com.youtube.util.PropertyReader;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -94,4 +91,8 @@ public class VideoTests {
         videoPage.click(videoPage.getNextVideo());
     }
 
+    @AfterAll
+    void destroy() {
+        driver.quit();
+    }
 }

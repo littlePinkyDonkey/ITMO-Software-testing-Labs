@@ -8,11 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 @Data
-public class ChanelPage {
+public class ChannelPage {
     private WebDriver driver;
-
-    @FindBy(xpath = "//*[@id=\"text\"]")
-    private WebElement chanelName;
 
     @FindBy(xpath = "//*[@id=\"confirm-button\"]/a")
     private WebElement unsubscribeBtn;
@@ -53,13 +50,9 @@ public class ChanelPage {
     @FindBy(xpath = "//*[@id=\"thumbnail\"]")
     private WebElement foundVideo;
 
-    public ChanelPage(WebDriver driver) {
+    public ChannelPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
-    }
-
-    public String getName() {
-        return chanelName.getText();
     }
 
     public void click(WebElement element) {
