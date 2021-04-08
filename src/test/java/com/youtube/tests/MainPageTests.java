@@ -25,9 +25,11 @@ public class MainPageTests {
     @BeforeAll
     void init() {
         propertyReader = new PropertyReader();
+
         System.setProperty("webdriver.chrome.driver", propertyReader.getProperty("chrome_driver"));
         ChromeOptions options = new ChromeOptions();
-        options.setExperimentalOption("debuggerAddress", "127.0.0.1:9222");
+        options.setExperimentalOption(propertyReader.getProperty("debugger_address_property"),
+                propertyReader.getProperty("debugger_address_property_value"));
 
         driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, 10);

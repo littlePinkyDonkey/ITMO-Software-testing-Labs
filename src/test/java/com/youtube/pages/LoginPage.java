@@ -26,6 +26,9 @@ public class LoginPage {
     @FindBy(xpath = "//*[@id=\"passwordNext\"]/div/button")
     private WebElement passwordNextBtn;
 
+    @FindBy(xpath = "/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[1]/div/h1/span")
+    private WebElement googleTrollingMessage;
+
     public LoginPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
@@ -36,7 +39,11 @@ public class LoginPage {
     }
 
     public void inputLogin(String login) {
-        loginField.sendKeys(login, Keys.ENTER);
+        if (loginField.getText() == null) {
+            loginField.sendKeys(login, Keys.ENTER);
+        } else {
+            loginField.sendKeys(Keys.ENTER);
+        }
     }
 
     public void inputPassword(String password) {
