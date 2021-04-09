@@ -10,7 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 public class MainPage {
     private WebDriver driver;
 
-    @FindBy(xpath = "/html/body/ytd-app/div/div/ytd-masthead/div[3]/div[2]/ytd-searchbox/form/div/div[1]/input")
+    @FindBy(xpath = "//*[@id=\"search\"]")
     private WebElement searchInput;
 
     @FindBy(xpath = "/html/body/ytd-app/div/div/ytd-masthead/div[3]/div[2]/ytd-searchbox/form/button")
