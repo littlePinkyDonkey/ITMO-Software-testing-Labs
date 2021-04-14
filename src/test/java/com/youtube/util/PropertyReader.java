@@ -9,10 +9,6 @@ public class PropertyReader {
     private HashMap<String, Properties> cache = new HashMap<>();
     private Properties prop;
 
-    public PropertyReader() {
-        setProp("config.properties");
-    }
-
     public void setProp(String fileName) {
         Properties properties = new Properties();
         if (!cache.containsKey(fileName)) {

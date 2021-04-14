@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,13 +26,21 @@ public class LoginPageTests {
     @BeforeAll
     void init() {
         propertyReader = new PropertyReader();
+        propertyReader.setProp("driver-prop.properties");
 
-        System.setProperty("webdriver.chrome.driver", propertyReader.getProperty("chrome_driver"));
-        ChromeOptions options = new ChromeOptions();
-        options.setExperimentalOption(propertyReader.getProperty("debugger_address_property"),
-                propertyReader.getProperty("debugger_address_property_value"));
+      if (propertyReader.getProperty("current_driver").equals("chrome_driver")) {
+            System.setProperty("webdriver.chrome.driver", propertyReader.getProperty("chrome_driver"));
+            ChromeOptions options = new ChromeOptions();
+            options.setExperimentalOption(propertyReader.getProperty("debugger_address_property"),
+                    propertyReader.getProperty("debugger_address_property_value"));
+            driver = new ChromeDriver(options);
+        } else {
+            System.setProperty("webdriver.gecko.driver", propertyReader.getProperty("mozilla_driver"));
+            driver = new FirefoxDriver();
+        }
 
-        driver = new ChromeDriver(options);
+        propertyReader.setProp("config.properties");
+
         wait = new WebDriverWait(driver, 10);
 
         driver.manage().window().maximize();
@@ -50,10 +59,9 @@ public class LoginPageTests {
         loginPage.click(loginPage.getChangeAccountBtn());
 
         Thread.sleep(1000);
-        loginPage.inputLogin("");
+        loginPage.inputLogin("teplyh.andrei@gmail.com");
         Thread.sleep(1000);
 
-        assertEquals(propertyReader.getProperty("google_trolling_message_expected_result"),
-                loginPage.getGoogleTrollingMessage().getText());
+        assertEquals("Не удалось войти в аккаунт", loginPage.getGoogleTrollingMessage().getText());
     }
 }

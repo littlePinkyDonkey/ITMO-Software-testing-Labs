@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
@@ -28,13 +29,21 @@ public class VideoTests {
     @BeforeAll
     void init() {
         propertyReader = new PropertyReader();
+        propertyReader.setProp("driver-prop.properties");
 
-        System.setProperty("webdriver.chrome.driver", propertyReader.getProperty("chrome_driver"));
-        ChromeOptions options = new ChromeOptions();
-        options.setExperimentalOption(propertyReader.getProperty("debugger_address_property"),
-                propertyReader.getProperty("debugger_address_property_value"));
+        if (propertyReader.getProperty("current_driver").equals("chrome_driver")) {
+            System.setProperty("webdriver.chrome.driver", propertyReader.getProperty("chrome_driver"));
+            ChromeOptions options = new ChromeOptions();
+            options.setExperimentalOption(propertyReader.getProperty("debugger_address_property"),
+                    propertyReader.getProperty("debugger_address_property_value"));
+            driver = new ChromeDriver(options);
+        } else {
+            System.setProperty("webdriver.gecko.driver", propertyReader.getProperty("mozilla_driver"));
+            driver = new FirefoxDriver();
+        }
 
-        driver = new ChromeDriver(options);
+        propertyReader.setProp("config.properties");
+
         wait = new WebDriverWait(driver, 10);
 
         driver.manage().window().maximize();
@@ -50,7 +59,7 @@ public class VideoTests {
         WebElement videoName =
                 wait.until(presenceOfElementLocated(By.xpath(propertyReader.getProperty("video_name_xpath"))));
 
-        assertEquals(propertyReader.getProperty("video_name_expected_result"), videoName.getText());
+        assertEquals("Веб. Раздел 12: Шаблоны проектирования в веб-приложениях", videoName.getText());
     }
 
     @Test
@@ -70,7 +79,7 @@ public class VideoTests {
 
         videoPage.click(videoPage.getCloseShareDialogBtn());
 
-        assertEquals(propertyReader.getProperty("video_shared_link_expected_result"), videoLink);
+        assertEquals("https://youtu.be/iZHTadqbrKA", videoLink);
     }
 
     @Test

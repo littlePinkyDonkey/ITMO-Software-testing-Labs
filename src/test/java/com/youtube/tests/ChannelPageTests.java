@@ -8,9 +8,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -23,12 +25,21 @@ public class ChannelPageTests {
     @BeforeAll
     void init() {
         propertyReader = new PropertyReader();
-        System.setProperty("webdriver.chrome.driver", propertyReader.getProperty("chrome_driver"));
-        ChromeOptions options = new ChromeOptions();
-        options.setExperimentalOption(propertyReader.getProperty("debugger_address_property"),
-                propertyReader.getProperty("debugger_address_property_value"));
+        propertyReader.setProp("driver-prop.properties");
 
-        driver = new ChromeDriver(options);
+        if (propertyReader.getProperty("current_driver").equals("chrome_driver")) {
+            System.setProperty("webdriver.chrome.driver", propertyReader.getProperty("chrome_driver"));
+            ChromeOptions options = new ChromeOptions();
+            options.setExperimentalOption(propertyReader.getProperty("debugger_address_property"),
+                    propertyReader.getProperty("debugger_address_property_value"));
+            driver = new ChromeDriver(options);
+        } else {
+            System.setProperty("webdriver.gecko.driver", propertyReader.getProperty("mozilla_driver"));
+            driver = new FirefoxDriver();
+        }
+
+        propertyReader.setProp("config.properties");
+
         wait = new WebDriverWait(driver, 10);
 
         driver.manage().window().maximize();
@@ -37,14 +48,13 @@ public class ChannelPageTests {
     }
 
     @Test
-    @DisplayName("Check if there is a right channel")
     void particularChannel() {
         driver.get(propertyReader.getProperty("youtube_channel_page"));
 
         WebElement channelName =
                 wait.until(presenceOfElementLocated(By.xpath(propertyReader.getProperty("channel_name_xpath"))));
 
-        assertEquals(propertyReader.getProperty("channel_name_expected_result"), channelName.getText());
+        assertEquals("Serge Klimenkov", channelName.getText());
     }
 
     @Test
@@ -76,6 +86,8 @@ public class ChannelPageTests {
 
     @Test
     void notificationsTest() throws InterruptedException {
+        assumeTrue(driver.getClass() == ChromeDriver.class);
+
         driver.get(propertyReader.getProperty("youtube_channel_page"));
 
         wait.until(presenceOfElementLocated(By.xpath(propertyReader.getProperty("channel_name_xpath"))));
@@ -95,6 +107,8 @@ public class ChannelPageTests {
     @Test
     @DisplayName("Check if user can unsubscribe and subscribe to the channel")
     void subscribeBtnTest() {
+        assumeTrue(driver.getClass() == ChromeDriver.class);
+
         driver.get(propertyReader.getProperty("youtube_channel_page"));
 
         WebElement subscribeBtn =
