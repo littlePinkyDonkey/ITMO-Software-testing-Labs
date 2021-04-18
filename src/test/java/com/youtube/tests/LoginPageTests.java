@@ -2,6 +2,7 @@ package com.youtube.tests;
 
 import com.youtube.pages.LoginPage;
 import com.youtube.util.PropertyReader;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -14,6 +15,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -49,7 +51,9 @@ public class LoginPageTests {
     }
 
     @Test
-    void loginPageTest() throws InterruptedException {
+    void loginPageChromeTest() throws InterruptedException {
+        assumeTrue(driver.getClass() == ChromeDriver.class);
+
         driver.get(propertyReader.getProperty("youtube_main_page"));
 
         WebElement loginBtn =
@@ -63,5 +67,29 @@ public class LoginPageTests {
         Thread.sleep(1000);
 
         assertEquals("Не удалось войти в аккаунт", loginPage.getGoogleTrollingMessage().getText());
+    }
+
+    @Test
+    void loginPageFirefoxTest() throws InterruptedException {
+        assumeTrue(driver.getClass() == FirefoxDriver.class);
+
+        driver.get(propertyReader.getProperty("youtube_main_page"));
+
+        WebElement loginBtn =
+                wait.until(presenceOfElementLocated(By.xpath(propertyReader.getProperty("login_btn_xpath"))));
+        loginBtn.click();
+
+        WebElement element = wait.until(presenceOfElementLocated(By.xpath("//*[@id=\"identifierId\"]")));
+        element.sendKeys("teplyh.andrei@gmail.com");
+        loginPage.click(loginPage.getLoginNextBtn());
+        Thread.sleep(1000);
+
+        assertEquals("Не удалось войти в аккаунт", loginPage.getGoogleTrollingMessage().getText());
+
+    }
+
+    @AfterAll
+    void destroy() {
+        driver.quit();
     }
 }
